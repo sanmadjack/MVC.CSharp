@@ -14,7 +14,7 @@ namespace MVC
         }
     }
 
-    public abstract class AModelItem<I>: INotifyPropertyChanged, IComparable<AModelItem<I>> where I: AIdentifier
+    public abstract class AModelItem<I> : ANotifyingObject, IComparable<AModelItem<I>> where I : AIdentifier
     {
         public I id {
             get;
@@ -30,15 +30,6 @@ namespace MVC
             this.id = id;
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string prop)
-        {
-           if( PropertyChanged != null )
-           {
-              PropertyChanged(this, new PropertyChangedEventArgs(prop));
-           }
-        }
 
         public virtual int CompareTo(AModelItem<I> comparable) {
             return this.id.CompareTo(comparable.id);

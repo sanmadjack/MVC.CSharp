@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="AIdentifier.cs" />
     <Compile Include="AModelItem.cs" />
+    <Compile Include="ANotifyingObject.cs" />
+    <Compile Include="AWorker.cs" />
     <Compile Include="CheckedTreeViewItem.cs" />
     <Compile Include="CheckedTreeViewModel.cs" />
     <Compile Include="Model.cs" />
