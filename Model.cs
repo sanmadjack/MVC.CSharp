@@ -43,6 +43,13 @@ namespace MVC {
             OnPropertyChanged(new PropertyChangedEventArgs(prop));
         }
 
+        public void AddRange(ICollection<T> us) {
+            foreach (T me in us) {
+                AddWithSort(me);
+            }
+
+        }
+
         public void AddWithSort(T add_me) {
             if (this.Count == 0) {
                 this.InsertItem(0, add_me);
