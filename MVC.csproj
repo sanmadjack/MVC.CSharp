@@ -49,6 +49,7 @@
     <Compile Include="CheckedTreeViewModel.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticModel.cs" />
     <Compile Include="StringID.cs" />
   </ItemGroup>
   <ItemGroup>
