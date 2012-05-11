@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
 
-namespace MVC
-{
+namespace MVC {
 
-    public abstract class AModelItem: AModelItem<StringID> {
+    public abstract class AModelItem : AModelItem<StringID> {
         protected AModelItem(String id)
             : base(new StringID(id)) {
         }
     }
 
-    public abstract class AModelItem<I> : ANotifyingObject, IComparable<AModelItem<I>> where I : AIdentifier
-    {
+    public abstract class AModelItem<I> : ANotifyingObject, IComparable<AModelItem<I>> where I : AIdentifier {
         public I id {
             get;
             protected set;
@@ -37,8 +31,8 @@ namespace MVC
 
 
         protected static int compare(IComparable a, IComparable b) {
-            if(a==null) {
-                if(b==null)
+            if (a == null) {
+                if (b == null)
                     return 0;
                 else
                     return -1;
@@ -55,43 +49,34 @@ namespace MVC
         }
 
         private bool _isSelected = false;
-        public bool IsSelected
-        {
+        public bool IsSelected {
             get { return _isSelected; }
-            set
-            {
-                if (value != _isSelected)
-                {
+            set {
+                if (value != _isSelected) {
                     _isSelected = value;
                     NotifyPropertyChanged("IsSelected");
                 }
             }
         }
         private bool _isExpanded = false;
-        public bool IsExpanded
-        {
+        public bool IsExpanded {
             get { return _isExpanded; }
-            set
-            {
-                if (value != _isExpanded)
-                {
+            set {
+                if (value != _isExpanded) {
                     _isExpanded = value;
                     this.NotifyPropertyChanged("IsExpanded");
                 }
 
                 // Expand all the way up to the root.
                 //if (_isExpanded && _parent != null)
-                    //_parent.IsExpanded = true;
+                //_parent.IsExpanded = true;
             }
         }
         private bool _isEnabled = true;
-        public bool IsEnabled
-        {
+        public bool IsEnabled {
             get { return _isEnabled; }
-            set
-            {
-                if (value != _isEnabled)
-                {
+            set {
+                if (value != _isEnabled) {
                     _isEnabled = value;
                     this.NotifyPropertyChanged("IsEnabled");
                 }
