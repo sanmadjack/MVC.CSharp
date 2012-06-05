@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 namespace MVC {
     public abstract class AWorker : ANotifyingObject {
-        protected BackgroundWorker worker;
+        public BackgroundWorker worker;
 
         protected AWorker(RunWorkerCompletedEventHandler when_done) {
             worker = new BackgroundWorker();
