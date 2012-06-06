@@ -41,7 +41,7 @@ namespace MVC {
         }
 
         public static void Refresh() {
-            model.refresh();
+            model.Refresh();
         }
 
         public static T Get(I id) {

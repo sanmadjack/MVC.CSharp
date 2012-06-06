@@ -14,6 +14,48 @@ namespace MVC {
             model = data_source;
 
             model.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(model_PropertyChanged);
+            model.CollectionChanged += new NotifyCollectionChangedEventHandler(model_CollectionChanged);
+            model.ItemPropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(model_ItemPropertyChanged);
+            Refresh();
+        }
+
+        void model_ItemPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+            if (matchesFilters(sender as T)) {
+                if (!this.Contains(sender)) {
+                    this.AddWithSort(sender as T);
+                }
+            } else {
+                if (this.Contains(sender)) {
+                    this.Remove(sender as T);
+                }
+            }
+        }
+
+        void model_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Reset:
+                    this.Refresh();
+                    break;
+                case NotifyCollectionChangedAction.Add:
+                    foreach(T item in e.NewItems) {
+                        if (matchesFilters(item)) {
+                            this.Add(item);
+                        }
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        public override void Refresh() {
+            this.Clear();
+            foreach (T item in model.Items) {
+                if (matchesFilters(item)) {
+                    this.AddWithSort(item);
+                }
+            }
+            base.Refresh();
         }
 
         void model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
@@ -24,36 +66,17 @@ namespace MVC {
 
         public void AddFilter(string property_name, object value) {
             filters.Add(property_name,value);
-            model.refresh();
+            model.Refresh();
         }
 
         private bool matchesFilters(T item) {
             foreach (string property in filters.Keys) {
                 object value = item.GetType().GetProperty(property).GetValue(item, null);
-                if (value != filters[property]) {
+                if (!value.Equals(filters[property])) {
                     return false;
                 }
             }
             return true;
-            ;
-        }
-
-        public new IList<T> Items {
-            get {
-                List<T> items = new List<T>();
-                foreach (T item in model.Items) {
-                    if (matchesFilters(item)) {
-                        items.Add(item);
-                    }
-                }
-                return items;
-            }
-        }
-
-        public int Count {
-            get {
-                return Items.Count;
-            }
         }
 
     }

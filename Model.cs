@@ -39,6 +39,8 @@ namespace MVC {
         protected bool _cancelling = false;
         public void cancel() { _cancelling = true; }
 
+
+
         public new event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string prop) {
             OnPropertyChanged(new PropertyChangedEventArgs(prop));
@@ -52,6 +54,7 @@ namespace MVC {
         }
 
         public void AddWithSort(T add_me) {
+            add_me.PropertyChanged += new PropertyChangedEventHandler(NotifyItemPropertyItemChanged);
             if (this.Count == 0) {
                 this.InsertItem(0, add_me);
             } else {
@@ -63,6 +66,13 @@ namespace MVC {
                     }
                 }
                 this.InsertItem(this.Count, add_me);
+            }
+        }
+
+        public new event PropertyChangedEventHandler ItemPropertyChanged;
+        void NotifyItemPropertyItemChanged(object sender, PropertyChangedEventArgs e) {
+            if (ItemPropertyChanged != null) {
+                ItemPropertyChanged(sender, e);
             }
         }
 
@@ -82,7 +92,7 @@ namespace MVC {
         public Model() {
         }
 
-        public void refresh() {
+        public virtual void Refresh() {
             NotifyCollectionChangedEventArgs e =
                 new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
             try {
