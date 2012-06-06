@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Collections.Generic;
 namespace MVC {
     public abstract class StaticModel<I, T> : ANotifyingObject, INotifyCollectionChanged
         where T : AModelItem<I>
@@ -18,18 +19,53 @@ namespace MVC {
             }
         }
 
+        public static bool IsEnabled {
+            protected set {
+                model.IsEnabled = value;
+            }
+            get {
+                return model.IsEnabled;
+            }
+        }
 
         void model_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             NotifyPropertyChanged(e.PropertyName);
+        }
+
+        protected static void StaticNotifyPropertyChanged(string name) {
+            model.NotifyPropertyChanged(name);
+        }
+
+        public static void Clear() {
+            model.Clear();
+        }
+
+        public static void Refresh() {
+            model.refresh();
         }
 
         public static T Get(I id) {
             return model.get(id);
         }
 
+        public static bool Contains(I id) {
+            return model.containsId(id);
+        }
+
         public static void Add(T item) {
             model.Add(item);
         }
 
+        public static INotifyPropertyChanged DataContext {
+            get {
+                return model;
+            }
+        }
+
+        public static IList<T> Items {
+            get {
+                return model.Items;
+            }
+        }
     }
 }

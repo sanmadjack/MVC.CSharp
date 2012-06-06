@@ -13,6 +13,7 @@ namespace MVC {
     public class Model<I, T> : ObservableCollection<T>
         where T : AModelItem<I>
         where I : AIdentifier {
+
         public new IList<T> Items {
             get {
                 return base.Items;
@@ -39,7 +40,7 @@ namespace MVC {
         public void cancel() { _cancelling = true; }
 
         public new event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string prop) {
+        public void NotifyPropertyChanged(string prop) {
             OnPropertyChanged(new PropertyChangedEventArgs(prop));
         }
 
