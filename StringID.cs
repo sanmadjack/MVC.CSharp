@@ -10,7 +10,7 @@ namespace MVC {
         public override int CompareTo(object obj) {
             return this.id.CompareTo(obj.ToString());
         }
-        public override bool Equals(AIdentifier to_me) {
+        public override bool Equals(AComparable to_me) {
             return this.id.Equals(to_me.ToString());
         }
 

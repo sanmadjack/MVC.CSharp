@@ -41,6 +41,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AComparable.cs" />
     <Compile Include="AIdentifier.cs" />
     <Compile Include="AModelItem.cs" />
     <Compile Include="ANotifyingCollection.cs" />
