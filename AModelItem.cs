@@ -15,6 +15,11 @@ namespace MVC {
             protected set;
         }
 
+        public string ToolTip {
+            get;
+            protected set;
+        }
+
         protected List<IComparable> comparisons = new List<IComparable>();
 
         protected AModelItem() {
