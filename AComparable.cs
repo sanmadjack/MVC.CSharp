@@ -9,6 +9,7 @@ namespace MVC {
 
         public abstract int CompareTo(object id);
 
+        public override abstract int GetHashCode();
 
         public static int compare(IComparable a, IComparable b) {
             if (a == null) {

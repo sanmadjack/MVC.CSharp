@@ -17,5 +17,9 @@ namespace MVC {
         public override string ToString() {
             return id;
         }
+
+        public override int GetHashCode() {
+            return id.GetHashCode();
+        }
     }
 }
