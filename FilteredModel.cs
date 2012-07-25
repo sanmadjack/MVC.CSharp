@@ -43,6 +43,12 @@ namespace MVC {
                         }
                     }
                     break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (T item in e.OldItems) {
+                        if (this.Contains(item))
+                            this.Remove(item);
+                    }
+                    break;
                 default:
                     throw new NotImplementedException();
             }

@@ -6,7 +6,8 @@ namespace MVC.Communication {
         public string default_option = null;
         public RequestType info_type;
         public RequestReply result;
-        public RequestEventArgs(RequestType new_info_type, string new_title, string new_message, List<string> new_options, string new_default_option, RequestReply new_result)
+        public bool suppressable = false;
+        public RequestEventArgs(RequestType new_info_type, string new_title, string new_message, List<string> new_options, string new_default_option, RequestReply new_result, bool suppressable)
             : base() {
             title = new_title;
             message = new_message;
@@ -14,6 +15,7 @@ namespace MVC.Communication {
             options = new_options;
             default_option = new_default_option;
             result = new_result;
+            this.suppressable = suppressable;
         }
     }
 }

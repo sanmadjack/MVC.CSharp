@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 namespace MVC {
-    public abstract class AWorker : ANotifyingObject {
+    public abstract class AWorker : ANotifyingObject, ICancellable {
         public BackgroundWorker worker;
 
         protected AWorker(RunWorkerCompletedEventHandler when_done) {
@@ -13,6 +13,12 @@ namespace MVC {
         }
 
         protected abstract void worker_DoWork(object sender, DoWorkEventArgs e);
+
+
+        public event RunWorkerCompletedEventHandler Completed {
+            add { worker.RunWorkerCompleted += value; }
+            remove { worker.RunWorkerCompleted -= value; }
+        }
 
 
         public void Cancel() {

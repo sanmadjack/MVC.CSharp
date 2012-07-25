@@ -7,23 +7,23 @@ namespace MVC.Communication {
     public class RequestHandler : CommunicationHandler {
         //protected static event RequestEventHandler RequestSent;
 
-        public static RequestReply Request(RequestType type) {
-            return Request(type, null, null, null);
+        public static RequestReply Request(RequestType type, bool suppressable) {
+            return Request(type, null, null, null, suppressable);
         }
-        protected static RequestReply Request(RequestType type, string title, string message) {
-            return Request(type, title, message, null, null);
+        protected static RequestReply Request(RequestType type, string title, string message, bool suppressable) {
+            return Request(type, title, message, null, null, suppressable);
         }
-        protected static RequestReply Request(RequestType type, string title, string message, List<string> choices) {
-            return Request(type, title, message, choices, null);
+        protected static RequestReply Request(RequestType type, string title, string message, List<string> choices, bool suppressable) {
+            return Request(type, title, message, choices, null, suppressable);
         }
-        protected static RequestReply Request(RequestType type, string title, string message, List<string> choices, string default_choice) {
+        protected static RequestReply Request(RequestType type, string title, string message, List<string> choices, string default_choice, bool suppressable) {
             RequestReply request = new RequestReply();
 
             if (type == RequestType.Choice && choices == null)
                 throw new CommunicatableException("Request Error", "A choice was requested, but no options provided");
 
 
-            RequestEventArgs e = new RequestEventArgs(type, title, message, choices, default_choice, request);
+            RequestEventArgs e = new RequestEventArgs(type, title, message, choices, default_choice, request,suppressable);
 
             ICommunicationReceiver receiver = getReceiver();
 
@@ -45,8 +45,10 @@ namespace MVC.Communication {
 
             waitForResponse(e);
 
-            if (e.response == ResponseType.Cancel || e.response == ResponseType.No)
+            if (e.response == ResponseType.Cancel || e.response == ResponseType.No) {
                 e.result.cancelled = true;
+            } else {
+            }
 
             return e.result;
         }

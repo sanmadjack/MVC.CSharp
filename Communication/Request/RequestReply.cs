@@ -4,6 +4,7 @@ namespace MVC.Communication {
         public string selected_option;
         public int selected_index;
         public bool cancelled = false;
+        public bool suppress = false;
     }
 
 }
