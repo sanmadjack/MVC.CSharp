@@ -28,26 +28,32 @@ namespace MVC.Communication {
             ICommunicationReceiver receiver = getReceiver();
 
             if (receiver == null) {
-                request.cancelled = true;
+                request.Cancelled = true;
                 return request;
             }
 
             if (receiver.context != null) {
-                receiver.context.Post(new SendOrPostCallback(delegate(object state) {
-                    RequestEventHandler handler = receiver.requestInformation;
-                    if (handler != null) {
-                        handler(e);
-                    }
-                }), null);
+                if (receiver.isSameContext()) {
+                    receiver.requestInformation(e);
+                } else {
+                    receiver.context.Post(new SendOrPostCallback(delegate(object state) {
+                        RequestEventHandler handler = receiver.requestInformation;
+                        if (handler != null) {
+                            handler(e);
+                        }
+                    }), null);
+                    waitForResponse(e);
+                }
             } else {
                 receiver.requestInformation(e);
             }
 
-            waitForResponse(e);
 
-            if (e.response == ResponseType.Cancel || e.response == ResponseType.No) {
-                e.result.cancelled = true;
-            } else {
+            switch (e.response) {
+                case ResponseType.Cancel:
+                case ResponseType.No:
+                    e.result.Cancelled = true;
+                    break;
             }
 
             return e.result;

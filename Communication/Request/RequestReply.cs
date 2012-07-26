@@ -1,10 +1,10 @@
 ﻿
 namespace MVC.Communication {
     public class RequestReply {
-        public string selected_option;
-        public int selected_index;
-        public bool cancelled = false;
-        public bool suppress = false;
+        public string SelectedOption;
+        public int SelectedIndex;
+        public bool Cancelled = false;
+        public bool Suppressed = false;
     }
 
 }

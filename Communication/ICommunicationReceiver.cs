@@ -12,5 +12,7 @@ namespace MVC.Communication {
         void hideInterface();
         void showInterface();
         void closeInterface();
+
+        bool isSameContext();
     }
 }
