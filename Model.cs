@@ -69,7 +69,7 @@ namespace MVC {
             }
         }
 
-        public new event PropertyChangedEventHandler ItemPropertyChanged;
+        public event PropertyChangedEventHandler ItemPropertyChanged;
         void NotifyItemPropertyItemChanged(object sender, PropertyChangedEventArgs e) {
             if (ItemPropertyChanged != null) {
                 ItemPropertyChanged(sender, e);
