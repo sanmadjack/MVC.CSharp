@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Threading;
+using System.Text;
+using System.Reflection;
+using System.Windows;
+using System.Diagnostics;
 namespace MVC.Communication {
     public delegate void MessageEventHandler(MessageEventArgs e);
 
@@ -67,5 +71,36 @@ namespace MVC.Communication {
             return e.response;
 
         }
+
+
+
+        public static string getEnvironmentInfo() {
+            StringBuilder output = new StringBuilder();
+
+            Assembly entryassem = Assembly.GetEntryAssembly();
+            output.AppendLine("Application Info:");
+            output.AppendLine("Entry Assembly:");
+            output.AppendLine(dumpAssemblyInfo(entryassem));
+            Assembly execassem = Assembly.GetExecutingAssembly();
+            output.AppendLine("Executing Assembly:");
+            output.AppendLine(dumpAssemblyInfo(execassem));
+            return output.ToString();
+        }
+        private static string dumpAssemblyInfo(Assembly ass) {
+            StringBuilder output = new StringBuilder();
+            output.Append("Codebase: ");
+            output.AppendLine(ass.CodeBase);
+            output.Append("Full Name: ");
+            output.AppendLine(ass.FullName);
+            output.Append("Image Runtime Version: ");
+            output.AppendLine(ass.ImageRuntimeVersion);
+            output.Append("Location: ");
+            output.AppendLine(ass.Location);
+            output.Append("Version: ");
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(ass.Location);
+            output.AppendLine(fvi.ProductVersion);
+            return output.ToString();
+        }
+
     }
 }

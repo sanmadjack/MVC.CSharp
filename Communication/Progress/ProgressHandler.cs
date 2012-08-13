@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Text;
 namespace MVC.Communication {
     #region Progress Definitions
     public delegate void ProgressChangedEventHandler(ProgressUpdatedEventArgs e);
@@ -150,5 +151,6 @@ namespace MVC.Communication {
                 receiver.updateProgress(e);
             }
         }
+
     }
 }
