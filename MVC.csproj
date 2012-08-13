@@ -58,7 +58,7 @@
     <Compile Include="Communication\Message\MessageEventArgs.cs" />
     <Compile Include="Communication\Message\MessageHandler.cs" />
     <Compile Include="Communication\Message\MessageTypes.cs" />
-    <Compile Include="Communication\Progress\ProgressChangedEventArgs.cs" />
+    <Compile Include="Communication\Progress\ProgressUpdatedEventArgs.cs" />
     <Compile Include="Communication\Progress\ProgressHandler.cs" />
     <Compile Include="Communication\Progress\ProgressState.cs" />
     <Compile Include="Communication\Request\RequestEventArgs.cs" />
