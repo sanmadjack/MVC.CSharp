@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows;
 using System.Diagnostics;
 namespace MVC.Communication {
-    public delegate void MessageEventHandler(MessageEventArgs e);
+    public delegate ResponseType MessageEventHandler(MessageEventArgs e);
 
     public class MessageHandler : CommunicationHandler {
         //protected static event MessageEventHandler MessageSent;   
@@ -13,13 +13,16 @@ namespace MVC.Communication {
         public static Boolean suppress_messages = false;
 
         protected static ResponseType SendException(Exception e) {
+            while (e.GetType() == typeof(TypeInitializationException)) {
+                e = e.InnerException;
+            }
             if (e.GetType() == typeof(CommunicatableException)) {
                 CommunicatableException ex = e as CommunicatableException;
                 string message = ex.Message;
 
-                return SendMessage(ex.title, message, MessageTypes.Error, ex);
+                return SendMessage(ex.title, message, MessageTypes.Error, ex, false);
             } else {
-                return SendMessage(e.GetType().ToString(), e.Message, MessageTypes.Error, e);
+                return SendMessage(e.GetType().ToString(), e.Message, MessageTypes.Error, e, false);
             }
 
         }
@@ -29,27 +32,33 @@ namespace MVC.Communication {
         }
         protected static ResponseType SendError(string name, string title, Exception e) {
             ProgressHandler.state = ProgressState.Error;
-            return SendMessage(name, title, MessageTypes.Error, e);
+            return SendMessage(name, title, MessageTypes.Error, e, false);
         }
         protected static ResponseType SendWarning(string name, string title) {
-            return SendWarning(name, title, null);
+            return SendWarning(name, title, null, false);
+        }
+        protected static ResponseType SendWarning(string name, string title, bool suppressable) {
+            return SendWarning(name, title, null, suppressable);
         }
         protected static ResponseType SendWarning(string name, string title, Exception e) {
+            return SendWarning(name, title, e, false);
+        }
+        protected static ResponseType SendWarning(string name, string title, Exception e, bool suppressable) {
             ProgressHandler.state = ProgressState.Error;
-            return SendMessage(name, title, MessageTypes.Warning, e);
+            return SendMessage(name, title, MessageTypes.Warning, e, suppressable);
         }
         protected static ResponseType SendInfo(string name, string title) {
             ProgressHandler.state = ProgressState.Wait;
-            return SendMessage(name, title, MessageTypes.Info, null);
+            return SendMessage(name, title, MessageTypes.Info, null, false);
         }
 
-        protected static ResponseType SendMessage(string title, string message, MessageTypes type, Exception ex) {
+        protected static ResponseType SendMessage(string title, string message, MessageTypes type, Exception ex, bool suppressable) {
             MessageEventArgs e = new MessageEventArgs();
             e.type = type;
             e.exception = ex;
             e.title = title;
             e.message = message;
-
+            e.Suppressable = suppressable;
             ICommunicationReceiver receiver = getReceiver();
             if (receiver == null)
                 return ResponseType.Cancel;

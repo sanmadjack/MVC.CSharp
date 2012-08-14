@@ -1,10 +1,15 @@
 ﻿
 namespace MVC.Communication {
     public enum ResponseType {
+        None,
         OK,
         Cancel,
         Yes,
         No,
-        None
+        Suppressed,
+        OKSuppressed,
+        CancelSuppressed,
+        YesSuprressed,
+        NoSuprressed
     }
 }

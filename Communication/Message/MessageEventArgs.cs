@@ -5,5 +5,6 @@ namespace MVC.Communication {
         public MessageTypes type;
         public bool acknowledged = false;
         public Exception exception = null;
+        public bool Suppressable = false;
     }
 }
