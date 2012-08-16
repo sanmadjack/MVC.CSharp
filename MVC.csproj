@@ -72,6 +72,7 @@
     <Compile Include="Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlyModel.cs" />
+    <Compile Include="SimpleModel.cs" />
     <Compile Include="StaticModel.cs" />
     <Compile Include="StringID.cs" />
   </ItemGroup>
