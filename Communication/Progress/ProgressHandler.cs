@@ -14,7 +14,7 @@ namespace MVC.Communication {
             get {
                 return _message;
             }
-            protected set {
+            set {
                 if(!suppress_communication)
                     _message = value;
                 setProgress();
