@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Threading;
+using System.ComponentModel;
 namespace MVC {
-    public class SimpleModel<T> : ObservableCollection<T> {
+    public class SimpleModel<T> : ObservableCollection<T>, INotifyingCollection  {
 
         public new IList<T> Items {
             get {
@@ -14,6 +16,15 @@ namespace MVC {
             }
         }
 
+        public IList GenericList {
+            get {
+                ArrayList items = new ArrayList();
+                foreach (object item in base.Items) {
+                    items.Add(item);
+                }
+                return items;
+            }
+        }
 
         protected bool _cancelling = false;
         public void cancel() { _cancelling = true; }

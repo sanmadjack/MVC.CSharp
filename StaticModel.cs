@@ -19,6 +19,19 @@ namespace MVC {
             }
         }
 
+        public static IList<T> SelectedItems {
+            get {
+                List<T> items = new List<T>();
+                lock (model) {
+                    foreach (T item in model.Items) {
+                        if (item.IsSelected)
+                            items.Add(item);
+                    }
+                }
+                return items;
+            }
+        }
+
         public static bool IsEnabled {
             protected set {
                 model.IsEnabled = value;

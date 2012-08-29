@@ -12,7 +12,7 @@ namespace MVC.Communication {
 
         public static Boolean suppress_messages = false;
 
-        protected static ResponseType SendException(Exception e) {
+        public static ResponseType SendException(Exception e) {
             while (e.GetType() == typeof(TypeInitializationException)) {
                 e = e.InnerException;
             }

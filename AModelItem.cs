@@ -9,7 +9,7 @@ namespace MVC {
         }
     }
 
-    public abstract class AModelItem<I> : ANotifyingObject, IComparable<AModelItem<I>> where I : AIdentifier {
+    public abstract class AModelItem<I> : ANotifyingObject, IComparable<AModelItem<I>>, IModelItem where I : AIdentifier {
         public I id {
             get;
             protected set;
@@ -88,5 +88,19 @@ namespace MVC {
 
             }
         }
+
+        public System.Drawing.Color BackgroundColor {
+            get {
+                return System.Drawing.Color.White;
+            }
+        }
+
+        public System.Drawing.Color SelectedColor {
+            get {
+                return System.Drawing.Color.Blue;
+            }
+        }
+
+
     }
 }

@@ -55,13 +55,17 @@ namespace MVC {
         }
 
         public override void Refresh() {
-            this.Clear();
-            foreach (T item in model.Items) {
-                if (matchesFilters(item)) {
-                    this.AddWithSort(item);
+            lock (this) {
+                this.Clear();
+                lock (model) {
+                    foreach (T item in model.Items) {
+                        if (matchesFilters(item)) {
+                            this.AddWithSort(item);
+                        }
+                    }
                 }
+                base.Refresh();
             }
-            base.Refresh();
         }
 
         void model_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
@@ -71,8 +75,10 @@ namespace MVC {
         private Dictionary<string, object> filters = new Dictionary<string,object>();
 
         public void AddFilter(string property_name, object value) {
-            filters.Add(property_name,value);
-            model.Refresh();
+            lock (filters) {
+                filters.Add(property_name, value);
+                model.Refresh();
+            }
         }
 
         private bool matchesFilters(T item) {
