@@ -15,7 +15,7 @@ namespace MVC {
             protected set;
         }
 
-        public string ToolTip {
+        public virtual string ToolTip {
             get;
             protected set;
         }

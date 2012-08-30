@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 namespace MVC {
     public interface INotifyingCollection {
         IList GenericList { get; }
+
         event PropertyChangedEventHandler PropertyChanged;
         event PropertyChangedEventHandler ItemPropertyChanged;
         event NotifyCollectionChangedEventHandler CollectionChanged;
