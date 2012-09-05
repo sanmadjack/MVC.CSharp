@@ -69,6 +69,10 @@ namespace MVC {
             model.Add(item);
         }
 
+        public static bool Remove(T item) {
+            return model.Remove(item);
+        }
+
         public static INotifyPropertyChanged DataContext {
             get {
                 return model;
