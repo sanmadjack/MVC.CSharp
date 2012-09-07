@@ -12,7 +12,7 @@ namespace MVC {
             if (when_done != null)
                 this.Completed += when_done;
 
-            worker.DoWork +=new DoWorkEventHandler(preWork);
+            worker.DoWork += new DoWorkEventHandler(preWork);
 
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);
         }
@@ -20,10 +20,10 @@ namespace MVC {
         private bool cancelled = false;
 
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            RunWorkerCompletedEventArgs ne = new RunWorkerCompletedEventArgs(e.Result,e.Error,cancelled); 
+            RunWorkerCompletedEventArgs ne = new RunWorkerCompletedEventArgs(e.Result, e.Error, cancelled);
 
 
-            if(Completed!=null)
+            if (Completed != null)
                 Completed(this, ne);
         }
 

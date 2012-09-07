@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using System.Text;
 namespace MVC.Communication {
     #region Progress Definitions
     public delegate void ProgressChangedEventHandler(ProgressUpdatedEventArgs e);
@@ -15,17 +14,17 @@ namespace MVC.Communication {
                 return _message;
             }
             set {
-                if(!suppress_communication)
+                if (!suppress_communication)
                     _message = value;
                 setProgress();
             }
         }
         public static void saveMessage() {
-            if(_message!=null)
+            if (_message != null)
                 saved_messages.Push(_message);
         }
         public static void restoreMessage() {
-            if(saved_messages.Count>0)
+            if (saved_messages.Count > 0)
                 message = saved_messages.Pop();
         }
         public static void clearMessage() {

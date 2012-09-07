@@ -1,6 +1,6 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Collections.Generic;
 namespace MVC {
     public abstract class StaticModel<I, T> : ANotifyingObject, INotifyCollectionChanged
         where T : AModelItem<I>

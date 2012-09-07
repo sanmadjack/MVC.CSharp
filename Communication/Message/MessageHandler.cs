@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading;
-using System.Text;
-using System.Reflection;
-using System.Windows;
 using System.Diagnostics;
+using System.Reflection;
+using System.Text;
+using System.Threading;
 namespace MVC.Communication {
     public delegate ResponseType MessageEventHandler(MessageEventArgs e);
 

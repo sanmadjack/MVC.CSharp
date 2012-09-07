@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MVC {
-    public abstract class AComparable: IEquatable<AComparable>, IComparable {
+    public abstract class AComparable : IEquatable<AComparable>, IComparable {
         public abstract bool Equals(AComparable to_me);
 
         public abstract int CompareTo(object id);

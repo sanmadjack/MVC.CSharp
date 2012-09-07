@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 namespace MVC {
     public class FilteredModel<I, T> : Model<I, T>
         where T : AModelItem<I>
         where I : AIdentifier {
 
-        private Model<I,T> model;
+        private Model<I, T> model;
 
         public FilteredModel(Model<I, T> data_source) {
             model = data_source;
@@ -37,7 +36,7 @@ namespace MVC {
                     this.Refresh();
                     break;
                 case NotifyCollectionChangedAction.Add:
-                    foreach(T item in e.NewItems) {
+                    foreach (T item in e.NewItems) {
                         if (matchesFilters(item)) {
                             this.Add(item);
                         }
@@ -72,7 +71,7 @@ namespace MVC {
             throw new NotImplementedException();
         }
 
-        private Dictionary<string, object> filters = new Dictionary<string,object>();
+        private Dictionary<string, object> filters = new Dictionary<string, object>();
 
         public void AddFilter(string property_name, object value) {
             lock (filters) {

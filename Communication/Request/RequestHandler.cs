@@ -23,7 +23,7 @@ namespace MVC.Communication {
                 throw new CommunicatableException("Request Error", "A choice was requested, but no options provided");
 
 
-            RequestEventArgs e = new RequestEventArgs(type, title, message, choices, default_choice, request,suppressable);
+            RequestEventArgs e = new RequestEventArgs(type, title, message, choices, default_choice, request, suppressable);
 
             ICommunicationReceiver receiver = getReceiver();
 

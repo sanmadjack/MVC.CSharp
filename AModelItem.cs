@@ -89,13 +89,13 @@ namespace MVC {
             }
         }
 
-        public System.Drawing.Color BackgroundColor {
+        public virtual System.Drawing.Color BackgroundColor {
             get {
                 return System.Drawing.Color.White;
             }
         }
 
-        public System.Drawing.Color SelectedColor {
+        public virtual System.Drawing.Color SelectedColor {
             get {
                 return System.Drawing.Color.Blue;
             }

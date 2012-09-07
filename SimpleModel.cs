@@ -6,9 +6,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Threading;
-using System.ComponentModel;
 namespace MVC {
-    public class SimpleModel<T> : ObservableCollection<T>, INotifyingCollection  {
+    public class SimpleModel<T> : ObservableCollection<T>, INotifyingCollection {
 
         public new IList<T> Items {
             get {
