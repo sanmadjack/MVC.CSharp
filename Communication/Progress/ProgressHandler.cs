@@ -112,13 +112,13 @@ namespace MVC.Communication {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Post(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Post(delegate() {
                     ProgressChangedEventHandler handler = receiver.updateProgress;
                     if (handler != null) {
                         handler(e);
                     }
-                }), null);
+                });
             } else {
                 receiver.updateProgress(e);
             }
@@ -139,13 +139,13 @@ namespace MVC.Communication {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Post(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Post(delegate() {
                     ProgressChangedEventHandler handler = receiver.updateProgress;
                     if (handler != null) {
                         handler(e);
                     }
-                }), null);
+                });
             } else {
                 receiver.updateProgress(e);
             }

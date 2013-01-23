@@ -9,13 +9,13 @@ namespace MVC.Communication.Interface {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Send(new SendOrPostCallback(delegate(object state) {
+            if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Send(delegate() {
                     GenericInterfaceEventHandler handler = receiver.closeInterface;
                     if (handler != null) {
                         handler();
                     }
-                }), null);
+                });
             } else {
                 receiver.closeInterface();
             }
@@ -25,13 +25,13 @@ namespace MVC.Communication.Interface {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Send(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Send(delegate() {
                     GenericInterfaceEventHandler handler = receiver.disableInterface;
                     if (handler != null) {
                         handler();
                     }
-                }), null);
+                });
             } else {
                 receiver.disableInterface();
             }
@@ -41,13 +41,13 @@ namespace MVC.Communication.Interface {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Send(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Send(delegate() {
                     GenericInterfaceEventHandler handler = receiver.enableInterface;
                     if (handler != null) {
                         handler();
                     }
-                }), null);
+                });
             } else {
                 receiver.enableInterface();
             }
@@ -58,13 +58,13 @@ namespace MVC.Communication.Interface {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Send(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Send(delegate() {
                     GenericInterfaceEventHandler handler = receiver.hideInterface;
                     if (handler != null) {
                         handler();
                     }
-                }), null);
+                });
             } else {
                 receiver.hideInterface();
             }
@@ -75,13 +75,13 @@ namespace MVC.Communication.Interface {
             if (receiver == null)
                 return;
 
-            if (receiver.context != null) {
-                receiver.context.Send(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Send(delegate() {
                     GenericInterfaceEventHandler handler = receiver.showInterface;
                     if (handler != null) {
                         handler();
                     }
-                }), null);
+                });
             } else {
                 receiver.showInterface();
             }

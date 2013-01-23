@@ -62,13 +62,13 @@ namespace MVC.Communication {
             if (receiver == null)
                 return ResponseType.Cancel;
 
-            if (receiver.context != null) {
-                receiver.context.Send(new SendOrPostCallback(delegate(object state) {
+			if (receiver.ThreadBridge != null) {
+				receiver.ThreadBridge.Send(delegate() {
                     MessageEventHandler handler = receiver.sendMessage;
                     if (handler != null) {
                         handler(e);
                     }
-                }), null);
+                });
             } else {
                 receiver.sendMessage(e);
             }

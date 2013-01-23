@@ -32,16 +32,16 @@ namespace MVC.Communication {
                 return request;
             }
 
-            if (receiver.context != null) {
+			if (receiver.ThreadBridge != null) {
                 if (receiver.isSameContext()) {
                     receiver.requestInformation(e);
                 } else {
-                    receiver.context.Post(new SendOrPostCallback(delegate(object state) {
+					receiver.ThreadBridge.Post(delegate() {
                         RequestEventHandler handler = receiver.requestInformation;
                         if (handler != null) {
                             handler(e);
                         }
-                    }), null);
+                    });
                     waitForResponse(e);
                 }
             } else {

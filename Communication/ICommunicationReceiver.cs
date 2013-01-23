@@ -2,7 +2,9 @@
 
 namespace MVC.Communication {
     public interface ICommunicationReceiver {
-        SynchronizationContext context { get; }
+
+		IThreadBridge ThreadBridge { get; }
+
         bool Available { get; }
         ResponseType sendMessage(MessageEventArgs e);
         void requestInformation(RequestEventArgs e);
