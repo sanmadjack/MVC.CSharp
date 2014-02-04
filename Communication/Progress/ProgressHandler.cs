@@ -11,14 +11,41 @@ namespace MVC.Communication {
         private static string _message = null;
         public static string message {
             get {
-                return _message;
+                System.Text.StringBuilder output = new System.Text.StringBuilder(_message);
+                if (!string.IsNullOrWhiteSpace(_debug_message))
+                {
+                    output.Append(" (");
+                    output.Append(_debug_message);
+                    output.Append(")");
+                }
+                return output.ToString();
             }
             set {
                 if (!suppress_communication)
+                {
                     _message = value;
+                    _debug_message = null;
+                }
                 setProgress();
             }
         }
+        private static string _debug_message = null;
+        public static string DebugMessage
+        {
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    _debug_message = null;
+                }
+                else
+                {
+                    _debug_message = value;
+                    setProgress();
+                }
+            }
+        }
+
         public static void saveMessage() {
             if (_message != null)
                 saved_messages.Push(_message);
@@ -29,6 +56,7 @@ namespace MVC.Communication {
         }
         public static void clearMessage() {
             message = null;
+            _debug_message = null;
             saved_messages.Clear();
         }
 
@@ -99,7 +127,7 @@ namespace MVC.Communication {
         //protected static event ProgressChangedEventHandler SubProgressChanged;
 
         private static void setProgress() {
-            setProgress(_value, _max, _message, _state);
+            setProgress(_value, _max, message, _state);
         }
 
         private static void setProgress(int value, int max, string message, ProgressState progstate) {
