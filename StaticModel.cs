@@ -19,7 +19,7 @@ namespace MVC {
             }
         }
 
-        public static IList<T> SelectedItems {
+        public static List<T> SelectedItems {
             get {
                 List<T> items = new List<T>();
                 lock (model) {

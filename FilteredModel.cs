@@ -90,5 +90,11 @@ namespace MVC {
             return true;
         }
 
+        public void ClearFilters() {
+            lock (filters) {
+                this.filters.Clear();
+            }
+        }
+
     }
 }
