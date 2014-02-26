@@ -19,7 +19,7 @@ namespace MVC.Communication {
         protected static RequestReply Request(RequestType type, string title, string message, List<string> choices, string default_choice, bool suppressable) {
             RequestReply request = new RequestReply();
 
-            if (type == RequestType.Choice && choices == null)
+            if (type == RequestType.Choice && (choices == null || choices.Count == 0))
                 throw new CommunicatableException("Request Error", "A choice was requested, but no options provided");
 
 
